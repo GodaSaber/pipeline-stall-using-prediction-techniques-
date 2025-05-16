@@ -1,4 +1,4 @@
-SimpleScalar Assignment #2
+SimpleScalar Assignment #2: Pipeline Stall Reduction Techniques
 Team Members:
 
 Goda Saber Goda
@@ -12,42 +12,103 @@ Mohamed Ahmed
 Nadia Kamel
 
 1. Definition of the Simulation Problem
-The goal of this assignment is to extend the basic 5-stage pipeline simulator from Assignment 1 by adding mechanisms to reduce control hazards through branch prediction, branch target buffers (BTB), and return address stacks (RAS). The simulator is built using the SimpleScalar toolset, and the focus is to understand how these features improve performance by reducing branch penalties in the pipeline.
+The objective of this assignment is to enhance the basic 5-stage pipeline simulator (from Assignment 1) by incorporating techniques to reduce control hazards. These techniques include:
+
+Branch Prediction
+
+Branch Target Buffer (BTB)
+
+Return Address Stack (RAS)
+
+The simulator is developed using the SimpleScalar toolset. The goal is to explore how these mechanisms help minimize pipeline stalls caused by branch instructions, thereby improving overall processor performance.
 
 2. Problems Encountered
-During development, we faced the following challenges:
+During the development process, we encountered several challenges:
 
-Integrating branch prediction in the ID stage and updating the fetch path correctly based on the predicted outcome.
+Integrating Branch Prediction in the Instruction Decode (ID) stage and updating the fetch path based on predicted outcomes.
 
-Correctly using the SimpleScalar bpred module, especially handling the different predictor types (2-bit, (2,2) correlated).
+Correct usage of the SimpleScalar bpred module, including different predictor types like:
 
-Handling mispredictions in both target and direction—identifying whether mispredictions occurred in the ID or EX stage.
+2-bit predictor
 
-Simulating BTB functionality in the IF stage and linking it with the rest of the pipeline.
+(2,2) correlated predictor
 
-Implementing and debugging the Return Address Stack (RAS) to accurately predict return instruction targets.
+Handling mispredictions in both:
+
+Branch direction
+
+Target address
+
+Identifying the correct stage (ID or EX) where mispredictions occurred.
+
+Simulating BTB functionality in the Instruction Fetch (IF) stage and linking it with the rest of the pipeline.
+
+Implementing and debugging the Return Address Stack (RAS) to correctly predict return instruction targets.
 
 3. How We Solved Them
-To address these problems, we took the following steps:
+To resolve the above issues, we followed these steps:
 
-Carefully studied the behavior of the bpred.c module and how it is used in sim-bpred.c.
+✅ Branch Prediction Implementation
+Studied the bpred.c and sim-bpred.c source files in detail.
 
-Used bpred_create, bpred_lookup, and bpred_update appropriately at each stage:
+Used the following functions at the appropriate stages:
 
-ID Stage: Performed branch prediction and updated the fetch PC.
+bpred_create() – to initialize the predictor
 
-EX Stage: Resolved actual branch outcomes and corrected any mispredictions.
+bpred_lookup() – to perform prediction in the ID stage
 
-Created new pipeline control flags to keep track of prediction states and speculative execution.
+bpred_update() – to update predictor status in the EX stage
 
-For BTB integration:
+🔁 Stage-specific Logic
+ID Stage:
 
-Performed lookups in the IF stage using predecode bits with MD_SET_OPCODE.
+Performed branch prediction and updated the fetch program counter (PC) accordingly.
 
-Tracked BTB hit/miss results and used them to simulate penalty cycles.
+EX Stage:
 
-Enabled RAS by providing a non-zero stack size in bpred_create and using the -ras option in the simulator.
+Resolved actual branch outcomes.
 
-Used sample assembly programs (loop.S, loop2.S) to verify correctness and cycle counts.
+Detected and corrected mispredictions.
 
-Ensured compatibility with SimpleScalar output formats and compared results with reference outputs.
+⚙️ Pipeline Control
+Added new control flags to manage:
+
+Prediction states
+
+Speculative execution
+
+Flushes on misprediction
+
+📦 BTB Integration
+Performed BTB lookups in the IF stage using:
+
+Instruction pre-decode via MD_SET_OPCODE
+
+Tracked BTB hits/misses and applied penalty cycles as needed.
+
+🌀 Return Address Stack (RAS)
+Enabled RAS by:
+
+Setting a non-zero stack size in bpred_create()
+
+Using the -ras flag in the command-line interface
+
+Verified correct behavior on return instructions.
+
+🔍 Testing & Validation
+Tested using assembly programs like:
+
+loop.S
+
+loop2.S
+
+Verified:
+
+Cycle counts
+
+Prediction accuracy
+
+Misprediction penalties
+
+Ensured compatibility with SimpleScalar output and validated against expected results.
+
