@@ -5,9 +5,9 @@ void analyzeGrade(int grade) {
     printf("Analyzing grade: %d\n", grade);
 
     if (grade >= 50) {
-        printf("✔️ Passed this subject\n");
+        printf("Passed this subject\n");
     } else {
-        printf("❌ Failed this subject\n");
+        printf("Failed this subject\n");
     }
 
     if (grade % 2 == 0) {
@@ -21,7 +21,7 @@ void analyzeGrade(int grade) {
     }
 
     if (grade > 90) {
-        printf("👏 Excellent!\n");
+        printf("Excellent!\n");
     } else if (grade >= 75) {
         printf("Very Good\n");
     } else if (grade >= 60) {
@@ -40,10 +40,10 @@ void evaluateStudent(int grades[], int size, int studentNumber) {
     int sum = 0;
     int i = 0;
 
-    printf("\n📘 Report for Student #%d:\n", studentNumber + 1);
+    printf("\nReport for Student #%d:\n", studentNumber + 1);
 
     while (i < size) {
-        printf("▪️ Subject %d: %d marks\n", i + 1, grades[i]);
+        printf("Subject %d: %d marks\n", i + 1, grades[i]);
         analyzeGrade(grades[i]);  // Call analysis function
         sum += grades[i];
         i++;
@@ -51,8 +51,8 @@ void evaluateStudent(int grades[], int size, int studentNumber) {
 
     float avg = (float)sum / size;
 
-    printf("✅ Total: %d\n", sum);
-    printf("✅ Average: %.2f\n", avg);
+    printf("Total: %d\n", sum);
+    printf("Average: %.2f\n", avg);
 
     // Overall grade level using switch
     char gradeLevel;
@@ -64,19 +64,19 @@ void evaluateStudent(int grades[], int size, int studentNumber) {
 
     switch (gradeLevel) {
         case 'A':
-            printf("📊 Overall Grade: Excellent (A)\n");
+            printf("Overall Grade: Excellent (A)\n");
             break;
         case 'B':
-            printf("📊 Overall Grade: Very Good (B)\n");
+            printf("Overall Grade: Very Good (B)\n");
             break;
         case 'C':
-            printf("📊 Overall Grade: Good (C)\n");
+            printf("Overall Grade: Good (C)\n");
             break;
         case 'D':
-            printf("📊 Overall Grade: Acceptable (D)\n");
+            printf("Overall Grade: Acceptable (D)\n");
             break;
         case 'F':
-            printf("📊 Overall Grade: Fail (F)\n");
+            printf("Overall Grade: Fail (F)\n");
             break;
     }
 
