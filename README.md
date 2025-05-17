@@ -1,5 +1,6 @@
-SimpleScalar Assignment #2: Pipeline Stall Reduction Techniques
-Course: High Performance Computer Architecture
+📌 Course Information
+Course Title: High Performance Computer Architecture
+
 Instructor: Dr. Mai Salama
 
 👥 Team Members
@@ -13,140 +14,141 @@ Mohamed Ahmed
 
 Nadia Kamel
 
-🧠 1. Problem Definition
-This assignment focuses on enhancing a basic 5-stage pipeline simulator (from Assignment 1) by implementing techniques that reduce pipeline stalls caused by control hazards, particularly from branch instructions. The following techniques were integrated into the pipeline simulator:
+1. Problem Definition
+In modern processor architectures, maintaining a high instruction throughput is essential for maximizing performance. However, control hazards—especially those caused by conditional branch instructions—pose a significant threat to pipeline efficiency. When the outcome of a branch is not yet known, the processor may stall or fetch incorrect instructions, leading to wasted cycles and reduced performance.
 
-Branch Prediction
+The objective of this assignment was to implement techniques that reduce control hazards in a 5-stage pipeline processor simulation, originally developed in Assignment 1. To achieve this, we extended the simulator using the SimpleScalar toolset, which provides an environment for evaluating processor behavior at the instruction level.
 
-Branch Target Buffer (BTB)
+The techniques implemented include:
 
-Return Address Stack (RAS)
+Dynamic Branch Prediction using 2-bit and (2,2) correlating predictors
 
-These techniques aim to reduce the number of stall cycles introduced by conditional and return branches, thereby improving instruction throughput and overall CPU performance.
+Branch Target Buffer (BTB) to store and predict target addresses of taken branches
 
-The simulator is built on the SimpleScalar toolset, and this project helps deepen our understanding of dynamic control flow prediction and its critical role in high-performance processors.
+Return Address Stack (RAS) to accurately predict return targets of function calls
 
-⚠️ 2. Problems Encountered
-During development, we faced several key technical and conceptual challenges:
+By integrating these mechanisms, the pipeline can make educated guesses about branch behavior, allowing it to continue executing instructions speculatively and only correct course when necessary. This greatly reduces pipeline stalls and improves performance.
 
-Correct placement of branch prediction logic: Determining where and how to use prediction (in the ID stage) while ensuring proper redirection of the program counter.
+2. Problems Encountered
+During the development and integration process, we encountered multiple technical challenges that required a deep understanding of the pipeline flow and the SimpleScalar architecture:
 
-Integration of the bpred module: Understanding how to work with the bpred_create, bpred_lookup, and bpred_update functions for different prediction strategies.
+Correct Placement of Prediction Logic: Determining the best stage in the pipeline to insert prediction logic (ID stage) and update it upon resolution (EX stage).
 
-Misprediction handling:
+Handling Mispredictions: Differentiating between direction mispredictions and target mispredictions, and ensuring proper flushing and PC correction.
 
-Detecting wrong predictions in both direction and target address.
+Understanding the bpred Module: The SimpleScalar branch prediction module supports various predictors, each requiring unique configuration. Learning how to use bpred_create, bpred_lookup, and bpred_update effectively was essential.
 
-Handling them correctly in the EX stage (for direction) and ID stage (for target).
+BTB Simulation: Emulating realistic BTB behavior in the IF stage, including hit/miss logic, and associating it with the branch prediction results.
 
-BTB implementation:
+RAS Stack Management: Simulating a stack to store return addresses and validating its correctness during nested function calls and returns.
 
-Linking BTB access with the IF stage and combining it with prediction results.
+Speculative Execution Handling: Managing speculative paths and ensuring proper flushing of wrong-path instructions without breaking the pipeline state.
 
-Simulating correct behavior on BTB hits/misses.
+Debugging and Testing: Isolating the causes of incorrect behavior during testing and validating prediction accuracy under different program conditions.
 
-RAS implementation:
+These challenges required both theoretical understanding and practical debugging, as even small logic errors could result in significant performance deviations or incorrect simulation behavior.
 
-Ensuring correct push/pop operations for call and return instructions.
+3. Implementation Strategy
+To overcome the above issues, we adopted a modular, test-driven approach to development. Our process was structured as follows:
 
-Handling stack overflows and validation scenarios.
+🔁 Branch Prediction Logic
+Implemented using bpred_lookup() in the Instruction Decode (ID) stage to speculate the branch direction.
 
-Control signal and PC management:
+The actual outcome was resolved in the Execute (EX) stage and used to update the predictor via bpred_update().
 
-Adding new control flags to manage speculative execution and flushing misfetched instructions.
+Predictor types used:
 
-Debugging pipeline state:
+2-bit Saturating Predictor: Simple, history-based predictor using a 2-bit counter.
 
-Ensuring synchronization and consistency across pipeline latches under speculative execution.
+(2,2) Correlating Predictor: More advanced predictor using two levels of branch history.
 
-🛠️ 3. Our Solutions
-To address the above challenges, we followed a structured approach:
+🧠 Pipeline Control
+Introduced new control flags to support speculative execution and detect mispredictions.
 
-🔁 Branch Prediction
-Studied bpred.c and sim-bpred.c to understand available predictor structures.
+Implemented mechanisms to flush incorrect instructions and redirect the PC upon misprediction.
 
-Used:
+🧭 Branch Target Buffer (BTB)
+Integrated in the Instruction Fetch (IF) stage.
 
-bpred_create() to instantiate predictors with configurable types (2-bit, correlated).
+Used pre-decode logic via MD_SET_OPCODE to identify branches early.
 
-bpred_lookup() in the ID stage to fetch predictions.
+BTB simulated realistic timing behavior:
 
-bpred_update() in the EX stage to correct predictions.
+0-cycle penalty for correct target prediction.
 
-🧩 Stage Logic Enhancements
-ID Stage:
-
-Performed prediction logic and updated PC accordingly.
-
-Prepared flags for speculative execution.
-
-EX Stage:
-
-Compared prediction with actual result.
-
-Triggered flush and PC correction on mispredictions.
-
-🗃️ BTB Integration
-Conducted BTB lookups in the IF stage.
-
-Utilized MD_SET_OPCODE for early instruction classification (pre-decode emulation).
-
-Handled BTB hit/miss scenarios and simulated accurate branch penalties as specified.
+1–2 cycles penalty for incorrect or missed predictions.
 
 📥 Return Address Stack (RAS)
-Activated via non-zero RAS size in bpred_create().
+Enabled via bpred_create() with a non-zero stack size (configured to 8).
 
-Enabled with the -ras command-line flag.
+Activated through a command-line -ras flag.
 
-Verified correct behavior through simulated function calls and returns.
+Verified correctness by simulating nested function calls and tracking return accuracy.
 
-🔍 Testing & Validation
-Ran simulations on sample assembly programs: loop.S, loop2.S.
+🧪 Testing and Validation
+We validated our simulator using:
 
-Verified correctness through:
+Simple test programs: loop.S, loop2.S
 
-Instruction cycle counts
+Larger benchmarks: test-printf, anagram
 
-Prediction statistics
+Validation metrics included:
 
-Misprediction penalty tracking
+Instruction and cycle counts
 
-Compared against reference outputs to ensure simulation validity.
+Prediction accuracy
 
-📊 4. Output Samples
-Below are example results obtained from running the enhanced simulator on test programs:
+Misprediction penalty cycles
 
-Program: loop.S
-----------------------------------
+BTB hit/miss rates
+
+Correct stack behavior in RAS
+
+4. Output Samples
+▶️ loop.S Results:
 Total Instructions: 100
+
 Total Cycles: 231
+
 Correct Predictions: 94
+
 Mispredictions: 6
+
 Prediction Accuracy: 94%
 
-BTB Hits: 7 / BTB Misses: 1
-RAS Predictions: 100% Accurate
-Branch Penalty Reduction: Significant
+BTB Hits: 7 / Misses: 1
 
-Program: loop2.S
-----------------------------------
+RAS Accuracy: 100%
+
+▶️ loop2.S Results:
 Total Instructions: 85
+
 Total Cycles: 188
+
 Correct Predictions: 82
+
 Mispredictions: 3
+
 Prediction Accuracy: 96%
 
-BTB Hits: 5 / BTB Misses: 2
-Return Stack Depth: 8
-These results confirm that the use of branch prediction, BTB, and RAS effectively reduces branch-related stalls and improves pipeline efficiency.
+BTB Hits: 5 / Misses: 2
+
+RAS Stack Size: 8
+
+These results confirm that prediction techniques significantly reduce the number of penalty cycles incurred by branches, leading to measurable performance improvement in pipeline throughput.
 
 ✅ Conclusion
-This assignment provided hands-on experience with fundamental architectural features used in modern CPUs to mitigate control hazards. By successfully integrating prediction techniques using the SimpleScalar simulation framework, we gained valuable insights into:
+This project provided hands-on experience with architectural techniques critical to modern processor performance. By extending the pipeline with branch prediction, BTB, and RAS, we demonstrated how theoretical concepts translate into real-world performance enhancements.
 
-The complexity of accurate branch prediction
+Key takeaways:
 
-The coordination required between pipeline stages during speculative execution
+Accurate branch prediction is essential for reducing pipeline stalls and maintaining throughput.
 
-The practical trade-offs in implementing BTB and RAS mechanisms
+The BTB adds value by predicting target addresses early, especially for taken branches.
 
-Overall, this project strengthened our understanding of performance-oriented processor design and how small improvements in prediction accuracy can lead to significant gains in pipeline throughput.
+The RAS is crucial for returning from function calls with high accuracy, especially in recursive or nested scenarios.
+
+Careful integration and validation are required to ensure all speculative mechanisms work harmoniously.
+
+Through careful implementation and testing, we successfully built a more intelligent and efficient pipeline simulation, bridging the gap between theory and practical CPU design.
+
