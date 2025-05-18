@@ -185,10 +185,10 @@ This simulation enhanced our understanding of control hazards and branch predict
 <h2>👥 Contributors</h2>
 <ul>
   <li><a href="https://github.com/GodaSaber" target="_blank">@GodaSaber</a></li>
-  <li><a href="https://github.com/HamedEssam" target="_blank">@HamedEssam</a></li>
-  <li><a href="https://github.com/MohamedWaheed" target="_blank">@MohamedWaheed</a></li>
+  <li><a href="https://github.com/hamedessamhamed" target="_blank">@HamedEssam</a></li>
+  <li><a href="https://github.com/medowahid" target="_blank">@MohamedWaheed</a></li>
   <li><a href="https://github.com/MohamedAhmedX" target="_blank">@MohamedAhmedX</a></li>
-  <li><a href="https://github.com/NadiaKamel" target="_blank">@NadiaKamel</a></li>
+  <li><a href="https://github.com/nadiakamelmohamed" target="_blank">@NadiaKamel</a></li>
 </ul>
 
 <p align="center"><em>Prepared by the team for the High Performance Computer Architecture course</em></p>
