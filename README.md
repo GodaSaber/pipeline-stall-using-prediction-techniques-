@@ -187,7 +187,7 @@ This simulation enhanced our understanding of control hazards and branch predict
   <li><a href="https://github.com/GodaSaber" target="_blank">@GodaSaber</a></li>
   <li><a href="https://github.com/hamedessamhamed" target="_blank">@HamedEssam</a></li>
   <li><a href="https://github.com/medowahid" target="_blank">@MohamedWaheed</a></li>
-  <li><a href="https://github.com/MohamedAhmedX" target="_blank">@MohamedAhmedX</a></li>
+  <li><a href="https://github.com/mohamedahmed" target="_blank">@MohamedAhmed</a></li>
   <li><a href="https://github.com/nadiakamelmohamed" target="_blank">@NadiaKamel</a></li>
 </ul>
 
