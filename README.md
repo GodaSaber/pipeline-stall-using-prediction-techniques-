@@ -284,12 +284,12 @@ $IDIR/simplesim-3.0/sim-safe hello
   <li>Compile using <code>make</code></li>
   <li>Run the simulator:
     
-    <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:2lev 1 1024 8 1 hello</code></pre>
-    <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 512 hello</code></pre>
-    <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 1024 hello</code></pre>
-    <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 256 -bpred:btb 1024 4 hello</code></pre>
-    <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 128 -bpred:ras 8 hello</code></pre>
-    <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 128 -bpred:ras 8 -bpred:btb 1024 2 hello</code></pre>
+  <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:2lev 1 1024 8 1 hello</code></pre>
+  <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 512 hello</code></pre>
+  <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 1024 hello</code></pre>
+  <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 256 -bpred:btb 1024 4 hello</code></pre>
+  <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 128 -bpred:ras 8 hello</code></pre>
+  <pre><code>$IDIR/simplesim-3.0/sim-bpred -bpred:bimod 128 -bpred:ras 8 -bpred:btb 1024 2 hello</code></pre>
     
     
 
