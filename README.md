@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>🚀 Simulation of Pipeline Stalls Reduction Techniques</title>
 </head>
 <body>
 
