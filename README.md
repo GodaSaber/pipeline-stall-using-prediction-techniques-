@@ -301,7 +301,8 @@ $IDIR/simplesim-3.0/sim-safe hello
 <hr>
 
 <h2 id="testing-and-validation">🧪 Testing and Validation</h2>
-![Pipeline Diagram](https://raw.githubusercontent.com/GodaSaber/pipeline-stall-using-prediction-techniques-/main/output/2level.png)
+![image](https://github.com/user-attachments/assets/5a8ce579-a471-49e2-ae46-10b561795234)
+
 
 <hr>
 
