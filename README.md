@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <title>🚀 Simulation of Pipeline Stalls Reduction Techniques</title>
 </head>
 <body>
 
@@ -16,6 +17,7 @@
   <li><a href="#problem-description">🔍 Problem Description</a></li>
   <li><a href="#prerequisites">🧰 Prerequisites</a></li>
   <li><a href="#environment-setup">🖥️ Environment Setup</a></li>
+  <li><a href="#installation-guide">📥 Installation Guide</a></li>
   <li><a href="#simulation-code-implementation">✏️ Simulation Code Implementation</a></li>
   <li><a href="#compile-and-run">🏁 Compile and Run</a></li>
   <li><a href="#testing-and-validation">🧪 Testing and Validation</a></li>
@@ -65,6 +67,98 @@ This project aims to reduce pipeline stalls by integrating advanced control haza
 
 <hr>
 
+<h2 id="installation-guide">📥 Installation Guide</h2>
+<h3>Step 1: Prerequisites</h3>
+<pre><code>sudo apt update && sudo apt upgrade
+sudo apt install build-essential gdb flex bison
+sudo apt install gcc-multilib g++-multilib binutils-multiarch lib32z1 libc6-i386 lib32gcc-s1
+</code></pre>
+
+<h3>Step 2: Environment Variables</h3>
+<pre><code>export IDIR="$HOME/simplescalar"
+export HOST="i686-pc-linux"
+export TARGET="sslittle-na-sstrix"
+export PATH="$IDIR/bin:$IDIR/sslittle-na-sstrix/bin:$PATH"
+</code></pre>
+
+<h3>Step 3: Download & Extract Tarballs</h3>
+<pre><code>mkdir -p $IDIR
+mv ~/simpletools-2v0.tgz ~/simpleutils-990811.tar.gz ~/gcc-2.7.2.3.ss.tar.gz ~/simplesim-3v0d-with-cheetah.tar.gz $IDIR
+cd $IDIR
+</code></pre>
+
+<h3>Step 4: Build Components</h3>
+<ul>
+  <li><strong>SimpleTools:</strong>
+    <pre><code>tar xvfz simpletools-2v0.tgz
+rm -rf gcc-2.6.3
+</code></pre>
+  </li>
+  <li><strong>SimpleUtils:</strong>
+    <pre><code>tar xvfz simpleutils-990811.tar.gz
+cd simpleutils-990811
+sed -i 's/yy_current_buffer/YY_CURRENT_BUFFER/g' ld/ldlex.l
+./configure --host=$HOST --target=$TARGET --with-gnu-as --with-gnu-ld --prefix=$IDIR
+make CFLAGS="-O"
+make install
+cd ..
+</code></pre>
+  </li>
+  <li><strong>SimpleSim (Simulator):</strong>
+    <pre><code>tar xvfz simplesim-3v0d-with-cheetah.tar.gz
+cd simplesim-3.0
+make config-pisa
+make
+cd ..
+</code></pre>
+  </li>
+</ul>
+
+<h3>Step 5: GCC Cross-Compiler</h3>
+<pre><code>tar xvfz gcc-2.7.2.3.ss.tar.gz
+cd gcc-2.7.2.3
+./configure --host=$HOST --target=$TARGET --with-gnu-as --with-gnu-ld --prefix=$IDIR
+chmod -R +w .
+</code></pre>
+
+<p><strong>Makefile & Code Fixes:</strong></p>
+<ul>
+  <li>Add <code>-I/usr/include</code> in Makefile</li>
+  <li>Replace <code>&lt;varargs.h&gt;</code> with <code>&lt;stdarg.h&gt;</code> in protoize.c</li>
+  <li>Fix pointer increment bug in obstack.h</li>
+</ul>
+
+<h3>Build, Enquire, and Install</h3>
+<pre><code>export ORIGINAL_PATH="$PATH"
+export PATH="/usr/bin:$PATH"
+
+make LANGUAGES=c CFLAGS="-O" CC="gcc -m32"
+make enquire
+$IDIR/simplesim-3.0/sim-safe enquire -f > float.h-cross
+make LANGUAGES=c CFLAGS="-O" CC="gcc -m32" install
+
+export PATH="$ORIGINAL_PATH"
+</code></pre>
+
+<h3>Step 6: Test Compilation</h3>
+<pre><code>mkdir -p $IDIR/tests
+cd $IDIR/tests
+
+cat <<EOF > hello.c
+#include &lt;stdio.h&gt;
+int main() {
+    printf("Hello World!\\n");
+    return 0;
+}
+EOF
+
+$IDIR/bin/sslittle-na-sstrix-gcc -o hello hello.c
+file hello
+$IDIR/simplesim-3.0/sim-safe hello
+</code></pre>
+
+<hr>
+
 <h2 id="simulation-code-implementation">✏️ Simulation Code Implementation</h2>
 <ul>
   <li><strong>Dynamic Branch Prediction:</strong>
@@ -98,7 +192,6 @@ This project aims to reduce pipeline stalls by integrating advanced control haza
 <hr>
 
 <h2 id="testing-and-validation">🧪 Testing and Validation</h2>
-<p>We used the following test programs to measure performance:</p>
 <table border="1" cellspacing="0" cellpadding="5">
   <thead>
     <tr>
@@ -174,25 +267,14 @@ This simulation enhanced our understanding of control hazards and branch predict
 
 <h2 id="contributors">👥 Contributors</h2>
 <ul>
-  <li>Goda Saber Goda</li>
-  <li>Hamed Essam Hamed</li>
-  <li>Mohamed Waheed</li>
-  <li>Mohamed Ahmed</li>
-  <li>Nadia Kamel</li>
-</ul>
-
-<hr>
-<h2>👥 Contributors</h2>
-<ul>
   <li><a href="https://github.com/GodaSaber" target="_blank">@GodaSaber</a></li>
   <li><a href="https://github.com/hamedessamhamed" target="_blank">@HamedEssam</a></li>
-  <li><a href="https://github.com/medowahid" target="_blank">@MohamedWaheed</a></li>
+  <li><a href="https://github.com/MohammedWaheedAbdallah" target="_blank">@MohamedWaheed</a></li>
   <li><a href="https://github.com/mohamedahmed" target="_blank">@MohamedAhmed</a></li>
   <li><a href="https://github.com/nadiakamelmohamed" target="_blank">@NadiaKamel</a></li>
 </ul>
 
 <p align="center"><em>Prepared by the team for the High Performance Computer Architecture course</em></p>
-
 
 </body>
 </html>
