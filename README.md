@@ -302,8 +302,20 @@ $IDIR/simplesim-3.0/sim-safe hello
 
 <h2 id="testing-and-validation">🧪 Testing and Validation</h2>
 <h4> 2 LEVEL </h4>
+
 ![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/179dbbb485fd94d14f2e45a33b3e636f0bb7d14a/output/2level.png?raw=true)
 
+![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimadlaandras.png?raw=true)
+
+![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimodal.png?raw=true)
+
+![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimodal2.png?raw=true)
+
+![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimodalandbtb.png?raw=true)
+
+![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimodalandbtb2.png?raw=true)
+
+![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimodalandrasandbtb.png?raw=true)
 
 <hr>
 
