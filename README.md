@@ -328,6 +328,7 @@ $IDIR/simplesim-3.0/sim-safe hello
 ![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimodalandbtb2.png?raw=true)
 
 <h4> $IDIR/simplesim-3.0/sim-bpred -bpred:bimod 128 -bpred:ras 8 -bpred:btb 1024 2 hello </h4>
+
 ![image alt](https://github.com/GodaSaber/pipeline-stall-using-prediction-techniques-/blob/00b1f07b5a0f7aef8377f75eac35095566f25e83/output/bimodalandrasandbtb.png?raw=true)
 
 <hr>
