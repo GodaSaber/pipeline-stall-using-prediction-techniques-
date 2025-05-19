@@ -301,42 +301,7 @@ $IDIR/simplesim-3.0/sim-safe hello
 <hr>
 
 <h2 id="testing-and-validation">🧪 Testing and Validation</h2>
-<table border="1" cellspacing="0" cellpadding="5">
-  <thead>
-    <tr>
-      <th>Test Program</th>
-      <th>Total Instructions</th>
-      <th>Total Cycles</th>
-      <th>Correct Predictions</th>
-      <th>Mispredictions</th>
-      <th>Prediction Accuracy</th>
-      <th>BTB Hits / Misses</th>
-      <th>RAS Accuracy</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>loop.S</td>
-      <td>100</td>
-      <td>231</td>
-      <td>94</td>
-      <td>6</td>
-      <td>94%</td>
-      <td>7 / 1</td>
-      <td>100%</td>
-    </tr>
-    <tr>
-      <td>loop2.S</td>
-      <td>85</td>
-      <td>188</td>
-      <td>82</td>
-      <td>3</td>
-      <td>96%</td>
-      <td>5 / 2</td>
-      <td>Stack size: 8</td>
-    </tr>
-  </tbody>
-</table>
+
 
 <hr>
 
